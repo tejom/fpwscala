@@ -1,0 +1,11 @@
+console
+compile
+console
+import ch._
+import ch2._
+console
+compile
+console
+~compile
+console
+exit
