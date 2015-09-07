@@ -153,6 +153,33 @@ object List {
 	def append[A](l: List[A] , x: List[A]): List[A]=
 		foldRight(l,x)(Cons(_,_))
 
+	//exercise 15
+	def concatList[A]( l: List[List[A]]): List[A] = {
+		@annotation.tailrec
+		def go(t: List[List[A]], n: List[A]): List[A] = {
+			t match{
+				case Cons(x,Nil) => append(n,x)
+				case Cons(x,xs) => go(xs,append(n,x))
+			}
+		}
+		go(l,Nil)
+		
+	}
+	//exercise 16
+	
+	def addOne(l: List[Int]): List[Int] ={
+		l match  {
+			case Cons(x,Nil) => Cons(x+1,Nil)
+			case Cons(x,xs) => Cons(x+1,addOne(xs))
+		}
+	}
+
+	def addOneFold2(l: List[Int]): List[Int] ={
+		foldRight(l,Nil:List[Int] ) ( (a,b)=>Cons(a+1,b) )
+	}
+ 	//exercise 17
+ 	def doubleListToString(l: List[Double]): List[String] =
+		foldRight(l,Nil:List[String])( (a,b) => Cons(a.toString,b))
 
 
 	
