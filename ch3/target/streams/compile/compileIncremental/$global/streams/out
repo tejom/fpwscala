@@ -17,7 +17,7 @@
 [0m[[0minfo[0m] [0mCompiling 1 Scala source to /Users/matthewtejo/scala/ch3/target/scala-2.11/classes...[0m
 [0m[[0mdebug[0m] [0mGetting compiler-interface from component compiler for Scala 2.11.4[0m
 [0m[[0mdebug[0m] [0mGetting compiler-interface from component compiler for Scala 2.11.4[0m
-[0m[[0mdebug[0m] [0mRunning cached compiler 4cb9166b, interfacing (CompilerInterface) with Scala compiler version 2.11.4[0m
+[0m[[0mdebug[0m] [0mRunning cached compiler 54fcb570, interfacing (CompilerInterface) with Scala compiler version 2.11.4[0m
 [0m[[0mdebug[0m] [0mCalling Scala compiler with arguments  (CompilerInterface):[0m
 [0m[[0mdebug[0m] [0m	-bootclasspath[0m
 [0m[[0mdebug[0m] [0m	/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Classes/jsfd.jar:/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Classes/classes.jar:/System/Library/Frameworks/JavaVM.framework/Frameworks/JavaRuntimeSupport.framework/Resources/Java/JavaRuntimeSupport.jar:/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Classes/ui.jar:/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Classes/laf.jar:/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Classes/sunrsasign.jar:/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Classes/jsse.jar:/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Classes/jce.jar:/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Classes/charsets.jar:/Users/matthewtejo/.ivy2/cache/org.scala-lang/scala-library/jars/scala-library-2.11.4.jar[0m
@@ -51,18 +51,18 @@
 [0m[[33mwarn[0m] [0mIt would fail on the following input: Nil[0m
 [0m[[33mwarn[0m] [0m			t match{[0m
 [0m[[33mwarn[0m] [0m			^[0m
-[0m[[33mwarn[0m] [0m/Users/matthewtejo/scala/ch3/ch3.scala:171: match may not be exhaustive.[0m
+[0m[[33mwarn[0m] [0m/Users/matthewtejo/scala/ch3/ch3.scala:175: match may not be exhaustive.[0m
 [0m[[33mwarn[0m] [0mIt would fail on the following input: Nil[0m
 [0m[[33mwarn[0m] [0m		l match  {[0m
 [0m[[33mwarn[0m] [0m		^[0m
 [0m[[33mwarn[0m] [0m8 warnings found[0m
-[0m[[0mdebug[0m] [0mScala compilation took 1.338662 s[0m
+[0m[[0mdebug[0m] [0mScala compilation took 1.218561 s[0m
 [0m[[0mdebug[0m] [0mInvalidating /Users/matthewtejo/scala/ch3/ch3.scala...[0m
 [0m[[0mdebug[0m] [0mInvalidating (transitively) by inheritance from /Users/matthewtejo/scala/ch3/ch3.scala...[0m
 [0m[[0mdebug[0m] [0mInitial set of included nodes: Set(/Users/matthewtejo/scala/ch3/ch3.scala)[0m
 [0m[[0mdebug[0m] [0mInvalidated by transitive inheritance dependency: Set(/Users/matthewtejo/scala/ch3/ch3.scala)[0m
 [0m[[0mdebug[0m] [0mThe /Users/matthewtejo/scala/ch3/ch3.scala source file has the following regular definitions changed:[0m
-[0m[[0mdebug[0m] [0m	doubleListToString.[0m
+[0m[[0mdebug[0m] [0m	concat.[0m
 [0m[[0mdebug[0m] [0mAll member reference dependencies will be considered within this context.[0m
 [0m[[0mdebug[0m] [0mNew invalidations:[0m
 [0m[[0mdebug[0m] [0m	Set()[0m

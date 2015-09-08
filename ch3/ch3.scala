@@ -165,6 +165,10 @@ object List {
 		go(l,Nil)
 		
 	}
+	//corect answer 15
+	def concat[A](l: List[List[A]]): List[A] = 
+  		foldRight(l, Nil:List[A])(append)
+
 	//exercise 16
 	
 	def addOne(l: List[Int]): List[Int] ={
@@ -180,7 +184,72 @@ object List {
  	//exercise 17
  	def doubleListToString(l: List[Double]): List[String] =
 		foldRight(l,Nil:List[String])( (a,b) => Cons(a.toString,b))
+	//ercise 18
+	def map[A,B](as: List[A])(f: A => B): List[B] =
+		foldRight(as,Nil:List[B])( ( a,b)=>Cons(f(a),b))
+		//not sure why I cant curry this
 
+	def testFunc(a:Int*):Int = {
+		if (a.isEmpty) a
+		else  println(a.tail) ; testFunc(a.tail: _*)
+		
+	}
+
+	//exercise 19
+	def filter[A](l: List[A])(f: A=> Boolean): List[A] = l match {
+		case Nil => Nil
+		case Cons(x,xs) if f(x) => Cons(x,filter(xs)(f))
+		case Cons(x,xs) => filter(xs)(f)
+	}
+	def filterFold[A](l: List[A])(f:A=> Boolean) : List[A]= {
+		foldRight(l,Nil:List[A]) ( (h,t) => if(f(h)) Cons(h,t) else t )
+	}
+	
+	def filterBuffer[A](as: List[A])(f: A=> Boolean): List[A]={
+		val buffer = new collection.mutable.ListBuffer[A]
+		@annotation.tailrec
+		def go(l: List[A]): Unit = l match {
+			case Nil => ()
+			case Cons(x,xs) => if( f(x) ) buffer += x ; go(xs) 
+			
+		}
+		go(as)
+		List(buffer.toList: _*)
+
+	}
+	def filterOdd(l: List[Int])=
+		filter(l)( (x) => x%2 == 0 )
+
+	//exercise 20
+	def flatMap[A,B](l: List[A])(f: A => List[B]): List[B] ={
+		def go(y: List[A]):List[B] = {
+			y match {
+				case Nil => Nil
+				case Cons(x,xs) => append(f(x),go(xs))
+			}
+
+		}
+		go(l)
+
+	}
+	def flatMapBuffer[A,B](l: List[A])(f: A => List[B]): List[B] ={
+		val buffer = Nil
+		def go (y: List[A]): Unit = y match {
+			case Nil => ()
+			case Cons(x,xs) => append(buffer ,f(x) ) ; go(xs)
+		}
+		go(l)
+		buffer
+
+	}
+
+	def flatMapAnswer[A,B](l: List[A])(f: A => List[B]): List[B]=
+		concatList(map(l)(f))
+
+	def flatTest(): List[Int]={
+		val l = List(1,2,3)
+		flatMap(l)( (i: Int) => List(i,i))
+	}
 
 	
 
