@@ -106,7 +106,7 @@ object List {
 	}
 	def length3[A](l: List[A]):Int =
 		foldRight(l, 0)((_,acc) => acc + 1)
-	// exercise10
+	// exercise10 didnt get this to work
 	def myfoldLeft[A,B](l :List[A],z: B)(f: (B,A)=>B): B = {
 		@annotation.tailrec
 		def go(x: List[A]): B= 
@@ -222,6 +222,7 @@ object List {
 
 	//exercise 20
 	def flatMap[A,B](l: List[A])(f: A => List[B]): List[B] ={
+		
 		def go(y: List[A]):List[B] = {
 			y match {
 				case Nil => Nil
@@ -233,13 +234,14 @@ object List {
 
 	}
 	def flatMapBuffer[A,B](l: List[A])(f: A => List[B]): List[B] ={
-		val buffer = Nil
+		val buffer = new collection.mutable.ListBuffer[List[B]]
 		def go (y: List[A]): Unit = y match {
 			case Nil => ()
-			case Cons(x,xs) => append(buffer ,f(x) ) ; go(xs)
+			case Cons(x,xs) => buffer += f(x)  ; go(xs)
 		}
 		go(l)
-		buffer
+		concat(List(buffer.toList: _*))
+		
 
 	}
 
@@ -251,11 +253,59 @@ object List {
 		flatMap(l)( (i: Int) => List(i,i))
 	}
 
+	//exercise 21
+	def flatFilter[A](l: List[A])(f: A=>Boolean):List[A] = {
+		flatMap(l)( x => if(f(x)) Cons(x,Nil) else Nil )
+	}
+
+	//22
+	def addLists(a: List[Int],b:List[Int]):List[Int] =  { (a,b) match {
+			case(Nil,Nil) => Nil
+			case (Cons(x,xs),Cons(y,ys)) => Cons( (x+y), addLists(xs,ys))
+		}
+	}
+	//23
+	def zipWith[A](a: List[A],b: List[A]) (f: (A, A) =>A ) ={
+		val buf = new collection.mutable.ListBuffer[A]
+		def go(c: List[A],d: List[A]): Unit = (c,d) match {
+			case (_,Nil)=> Nil
+			case (Nil,_)=> Nil
+			case(Cons(x,xs),Cons(y,ys)) => buf += f(x,y) ; go(xs,ys)
+		}
+		go(a,b)
+		List(buf.toList: _*)
+	}
+	//24
+	def hadSubsequence[A](sup: List[A], sub: List[A]): Boolean ={
+		def go[A](a:List[A], b: List[A]): Boolean = (a,b) match {
+			case (Nil,_) => false 
+			case (_,Nil) => false 
+			case ( Cons(x,_),Cons(y,Nil)) if x==y => true
+			case ( Cons(x,xs),Cons(y,ys)) if x==y => go(xs,ys)
+			case ( Cons(x,xs),Cons(y,ys)) => go(xs,sub)
+		}
+		go(sup,sub)
+	}
+	
 	
 
 
 
 }
+
+sealed trait Tree[+A]
+case class Leaf[A](value: A) extends Tree[A]
+case class Branch[A](left: Tree[A] , right: Tree[A]) extends Tree[A]
+
+object Tree {
+
+
+}
+
+
+
+
+
 sealed trait test
 
 case class Func(a: Int,b: Int) extends test
