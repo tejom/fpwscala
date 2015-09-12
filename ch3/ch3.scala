@@ -298,9 +298,67 @@ case class Leaf[A](value: A) extends Tree[A]
 case class Branch[A](left: Tree[A] , right: Tree[A]) extends Tree[A]
 
 object Tree {
-
+	//25 //had to check the answer
+	//def size[A](h: Tree[A]): Int = {
+		// def go(n: Tree[A],c: Int):Int = {
+		// 	n match {
+		// 		case Branch( Leaf(_)),Leaf(_)) => c+2
+		// 		case Branch()
+		// 	}
+		// go(h,0)
+	//}
+	def size2[A](h: Tree[A]): Int = {
+		h match {
+			case Leaf(_) => 1
+			case Branch(l,r) => 1+ size2(l) + size2(r)
+		}
+	}
+	//26
+	def maximum(t: Tree[Int]): Int = {
+		t match {
+			case Leaf(i) => i
+			case Branch(l,r) => maximum(l) max maximum(r)
+		}
+	}
+	//27 got a glimpse of the answwr while figuring out what to return
+	def depth[A](t: Tree[Int]): Int ={
+		def go[A](l: Tree[A],c: Int): Int =
+		l match {
+			case Leaf(_) => c+1
+			case Branch(l,r) => go(l,c+1) max go(r,c+1)
+		}
+		go(t,0)
+	}
+	//28
+	def mapTree[A,B](t:Tree[A])(f: A => B) : Tree[B] = {
+		val map = mapTree(_:Tree[A])(f)
+		t match {
+		
+		case Leaf(i) => Leaf(f(i))
+		case Branch(l,r) => Branch(map(l),map(r))
+		}
+	}
+	//29
+	def fold[A](t:Tree[A],z: Tree[A])( f: ( Tree[A], Tree[A]) => Tree[A]): Tree[A] = {
+		t match {
+			case Leaf(i) => z
+			case Branch(l,r) => f( fold(l,z)(f) , fold(r,z)(f))
+		}
+	}
 
 }
+
+object buildTree  {
+	val a = Leaf(9)
+	val b = Leaf(1)
+	val c = Branch(a,b)
+	val x = Leaf(7)
+	val y = Leaf(3)
+	val d = Branch(x,y)
+	val t = Branch(c,d)
+}
+ 
+ 
 
 
 
