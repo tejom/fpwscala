@@ -69,7 +69,7 @@ object ex {
     		} yield ( aa *2)
     	
     }
-
+    //4.5
     def traverse[A,B](a: List[A])(f: A => Option[B]): Option[List[B]] ={
     	a match {
         case Nil => Some(Nil)
@@ -77,4 +77,60 @@ object ex {
         }
     }
 
+
+
 }
+
+sealed trait Either[+E, +A] {
+	def map[B](f: A => B): Either[E,B] = this match {
+			case Right(i) => Right( f(i))
+			case Left(i) => Left(i)
+		}
+	
+	def flatMap[EE >: E , B](f: A => Either[EE,B]): Either[EE,B] = {
+		this match {
+			case Right(i) => f(i)
+			case Left(i) => Left(i)
+		}
+	}
+
+	def orElse[EE >: E, B >: A](b: Either[EE,B]): Either[EE,B] = {
+		this match {
+			case Left(_) => b
+			case Right(i) => Right(i)
+		}
+	 }
+
+	 def map2[EE >: E,B,C](b: Either[EE,B])(f: (A,B)=> C): Either[EE,C] ={
+	 	this match {
+	 		case Left(i) => Left(i)
+	 		case Right(_) => this.flatMap( tt => b.map( bb => f(tt,bb)))
+	 	}
+	 }
+	 def map22[EE >: E,B,C](b: Either[EE,B])(f: (A,B)=> C): Either[EE,C] ={
+	 	 for( 
+	 			tt <- this;
+	 		 	bb <- b
+	 		 	) yield f(tt,bb)
+	 	
+	 }
+	 def map2answer[EE >: E, B, C](b: Either[EE, B])(f: (A, B) => C): 
+ 		 Either[EE, C] = for { a <- this; b1 <- b } yield f(a,b1)
+
+ 	def sequence[E,A](es: List[Either[E,A]]): Either[E,List[A]]={
+ 		es match{
+ 			case Nil => Right(Nil)
+ 			case h :: t => h.flatMap(hh => sequence(t).map(hh :: _))
+ 		}
+ 	}
+
+ 	def traverse[E,A,B](es: List[A])(f: A => Either[E, B]): Either[E, List[B]] = {
+ 		es match{
+ 			case Nil => Right(Nil)
+ 			case h :: t => f(h).flatMap( hh => traverse(t)(f).map( hh :: _))
+ 		}
+ 	}
+
+}
+case class Left[+E](value: E) extends Either[E,Nothing]
+case class Right[+A](value: A) extends Either[Nothing,A]
