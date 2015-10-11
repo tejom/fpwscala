@@ -1,3 +1,8 @@
+
+initialCommands in console := """
+    |import ch5._
+    |""".stripMargin
+
 lazy val root = (project in file(".")).
 	settings(
 		name:="hello",
